@@ -13,11 +13,11 @@ import java.util.Random;
 /**
  * the Game.
  */
-public class Game implements Animation{
+public class GameLevel implements Animation{
     private SpriteCollection sprites;
     private GameEnvironment environment;
-    private GUI gui;
     private KeyboardSensor keyboard;
+    private GUI gui;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private BlockRemover blockRemover;
@@ -26,6 +26,9 @@ public class Game implements Animation{
     private AnimationRunner runner;
     private boolean running;
     private final int framesPerSecond = 60;
+    private LevelInformation levelInformation;
+    private Counter counter;
+    private int level;
 
 
     /**
@@ -63,26 +66,30 @@ public class Game implements Animation{
     /**
      *
      */
-    public Game() {
-        this.gui = new GUI("Really Cool Game", WIDTH, HEIGHT);
+    public GameLevel(LevelInformation levelInformation, GUI gui, AnimationRunner animationRunner,
+                     Counter counter, int level) {
+        this.level = level;
+        this.counter = counter;
+        this.levelInformation = levelInformation;
         sprites = new SpriteCollection();
         environment = new GameEnvironment();
-        this.keyboard =  gui.getKeyboardSensor();
+        this.gui = gui;
+        this.keyboard = gui.getKeyboardSensor();
+        this.runner = animationRunner;
     }
 
     /**
      * initialize the game the balls for the game.
-     * @param num -number of balls
      * @param startPoint - the start point of the paddle
      * @param width - with of the paddle
      */
-    public void initializeBalls(int num, Point startPoint, int width) {
-        for (int i = 0; i < num; i++) {
+    public void initializeBalls(Point startPoint, int width) {
+        for (Velocity velocity : this.levelInformation.initialBallVelocities()) {
             Random rn = new Random();
             int startWidth = rn.nextInt(width) + 1;
             Point newPoint = new Point((int) startPoint.getX() + startWidth, (int) startPoint.getY());
             Ball ball =  new Ball(newPoint , 5, Color.BLACK, this.environment);
-            ball.setVelocity(0, 5);
+            ball.setVelocity(velocity);
             ball.addToGame(this);
         }
     }
@@ -137,21 +144,29 @@ public class Game implements Animation{
      * initialize the game.
      */
     public void initialize() {
+        sprites.addSprite(this.levelInformation.getBackground());
         Color color = Color.red;
-        Block paddleBlock = new Block(new Rectangle(new Point(400, 560), 50, 10), color);
+        int paddleStartX = WIDTH/2 -levelInformation.paddleWidth()/2;
+        Block paddleBlock = new Block(new Rectangle(new Point(paddleStartX, 560), levelInformation.paddleWidth(), 10), color);
         Paddle paddle = new Paddle(this.keyboard, paddleBlock);
         paddle.addToGame(this);
-        Counter counter =  new Counter();
+        Counter counter =  this.counter;
         scoreTrackingListener = new ScoreTrackingListener(this, counter);
         ScoreIndicator scoreIndicator = new ScoreIndicator(this, counter);
         scoreIndicator.addToGame();
         color = Color.blue;
         blockRemover = new BlockRemover(this, new Counter());
         ballRemover = new BallRemover(this, new Counter());
-        ballRemover.addBall(2);
-        initializeBlocks(6, 50, 20, 20);
+        ballRemover.addBall(levelInformation.numberOfBalls());
+        //initializeBlocks(6, 50, 20, 20);
         initializeBorder(20, Color.GRAY);
-        initializeBalls(2, new Point(400, 440), 50);
+        initializeBalls(new Point(paddleStartX, 440), levelInformation.paddleWidth());
+        for (Block block : levelInformation.blocks()) {
+            block.addHitListener(blockRemover);
+            block.addHitListener(scoreTrackingListener);
+            blockRemover.addedBlock(1);
+            block.addToGame(this);
+        }
     }
 
     /**
@@ -159,13 +174,14 @@ public class Game implements Animation{
      */
     public void run() {
         this.running = true;
-        this.runner = new AnimationRunner(gui, framesPerSecond);
+        //this.runner = new AnimationRunner(gui, framesPerSecond);
         int numOfSeconds = 3;
         int countFrom = 3;
         runner.setFramesPerSecond(numOfSeconds/countFrom);
         this.runner.run(new CountdownAnimation(numOfSeconds,countFrom, sprites));
         runner.setFramesPerSecond(framesPerSecond);
         this.runner.run(this);
+        //gui.close();
     }
 
     /**
@@ -189,9 +205,25 @@ public class Game implements Animation{
 
     /**
      * check if animation should stop
-     * @return
+     * @return - if the game should stop
      */
     public boolean shouldStop(){
         return !this.running;
+    }
+
+    public int getNumBalls () {
+        return ballRemover.remainedBalls();
+    }
+
+    public int getNumBlocks() {
+        return  blockRemover.remainedBlocks();
+    }
+
+    public String getLevelName() {
+        return levelInformation.levelName();
+    }
+
+    public int getLevelNumber() {
+        return this.level;
     }
 }

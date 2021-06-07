@@ -6,7 +6,7 @@
  * Block Remover.
  */
 public class BlockRemover implements HitListener {
-    private Game game;
+    private GameLevel game;
     private Counter remainingBlocks;
 
     /**
@@ -14,7 +14,7 @@ public class BlockRemover implements HitListener {
      * @param game - the game
      * @param  remainingBlocks - the blocks that remains
      */
-    public BlockRemover(Game game, Counter remainingBlocks) {
+    public BlockRemover(GameLevel game, Counter remainingBlocks) {
         this.game = game;
         this.remainingBlocks =  remainingBlocks;
     }

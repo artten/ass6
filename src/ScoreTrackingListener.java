@@ -7,14 +7,14 @@
  */
 public class ScoreTrackingListener implements HitListener {
     private Counter currentScore;
-    private Game game;
+    private GameLevel game;
 
     /**
      * Constructor.
      * @param game - the game
      * @param scoreCounter - counter with the score
      */
-    public ScoreTrackingListener(Game game, Counter scoreCounter) {
+    public ScoreTrackingListener(GameLevel game, Counter scoreCounter) {
         this.currentScore = scoreCounter;
         this.game = game;
     }

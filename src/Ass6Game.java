@@ -1,3 +1,5 @@
+import biuoop.GUI;
+
 /**
  * @author 319339198
  */
@@ -12,9 +14,7 @@ public class Ass6Game {
      * @param args - main
      */
     public static void main(String[] args) {
-        Game game = new Game();
-        game.initialize();
-        game.run();
+
     }
 
 }

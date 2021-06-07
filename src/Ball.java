@@ -187,7 +187,7 @@ public class Ball implements Sprite {
      * add the ball to the game.
      * @param game - the game object
      */
-    public void addToGame(Game game) {
+    public void addToGame(GameLevel game) {
         game.addSprite(this);
     }
 

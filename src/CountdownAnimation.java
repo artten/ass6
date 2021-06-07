@@ -19,6 +19,12 @@ public class CountdownAnimation implements Animation {
     private AnimationRunner runner;
     private int numberToDisplay;
 
+    /**
+     * constructor.
+     * @param numOfSeconds - number of seconds that will be played
+     * @param countFrom - count from
+     * @param gameScreen - all the sprite of the game
+     */
     public CountdownAnimation(double numOfSeconds, int countFrom, SpriteCollection gameScreen) {
         this.countFrom = countFrom + 1;
         this.numOfSeconds = numOfSeconds + 1;
@@ -26,18 +32,24 @@ public class CountdownAnimation implements Animation {
         this.numberToDisplay = countFrom;
     }
 
-
+    /**
+     * what to display every second.
+     * @param d - surface
+     */
     public void doOneFrame(DrawSurface d) {
         this.gameScreen.drawAllOn(d);
+        d.drawText(d.getWidth() / 2, d.getHeight() / 2, Integer.toString(this.numberToDisplay), 32);
+        this.numberToDisplay = this.numberToDisplay - 1;
         if (this.numberToDisplay == 0) {
-            d.drawText(d.getWidth() / 2, d.getHeight() / 2, "Go", 32);
             this.stop = true;
             return;
         }
-        d.drawText(d.getWidth() / 2, d.getHeight() / 2, Integer.toString(this.numberToDisplay), 32);
-        System.out.println(numberToDisplay);
-        this.numberToDisplay = this.numberToDisplay - 1;
     }
+
+    /**
+     * should the runner stop to display that image.
+     * @return - true if needed to be stopped
+     */
     public boolean shouldStop() {
         return this.stop;
     }

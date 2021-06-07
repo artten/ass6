@@ -5,7 +5,7 @@
  * ball Remover.
  */
 public class BallRemover implements HitListener {
-    private Game game;
+    private GameLevel game;
     private Counter counter;
 
     /**
@@ -13,7 +13,7 @@ public class BallRemover implements HitListener {
      * @param game - the game
      * @param counter -  balls counter
      */
-    public BallRemover(Game game, Counter counter) {
+    public BallRemover(GameLevel game, Counter counter) {
         this.game = game;
         this.counter = counter;
     }
