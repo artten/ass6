@@ -155,12 +155,12 @@ public class GameLevel implements Animation{
         ScoreIndicator scoreIndicator = new ScoreIndicator(this, counter);
         scoreIndicator.addToGame();
         color = Color.blue;
+        //initializeBlocks(6, 50, 20, 20);
+        initializeBalls(new Point(paddleStartX, 440), levelInformation.paddleWidth());
         blockRemover = new BlockRemover(this, new Counter());
         ballRemover = new BallRemover(this, new Counter());
         ballRemover.addBall(levelInformation.numberOfBalls());
-        //initializeBlocks(6, 50, 20, 20);
         initializeBorder(20, Color.GRAY);
-        initializeBalls(new Point(paddleStartX, 440), levelInformation.paddleWidth());
         for (Block block : levelInformation.blocks()) {
             block.addHitListener(blockRemover);
             block.addHitListener(scoreTrackingListener);

@@ -19,6 +19,7 @@ public class main {
         GameFlow gameFlow = new GameFlow(runner, gui);
         List<LevelInformation> levelInformations = new LinkedList<LevelInformation>();
         levelInformations.add(new Level1());
+        levelInformations.add(new Level2());
         gameFlow.runLevels(levelInformations);
     }
 

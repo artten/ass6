@@ -1,5 +1,6 @@
 import biuoop.DrawSurface;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -104,6 +105,11 @@ public class Block implements Collidable, Sprite, HitNotifier {
     public void drawOn(DrawSurface surface) {
         surface.setColor(this.color);
         surface.fillRectangle((int) this.block.getUpperLeft().getX(),
+                (int) this.block.getUpperLeft().getY(),
+                (int) this.block.getWidth(),
+                (int) this.block.getHeight());
+        surface.setColor(Color.BLACK);
+        surface.drawRectangle((int) this.block.getUpperLeft().getX(),
                 (int) this.block.getUpperLeft().getY(),
                 (int) this.block.getWidth(),
                 (int) this.block.getHeight());

@@ -39,9 +39,17 @@ public class SpriteCollection {
      *  call timePassed() on all sprites.
      */
     public void notifyAllTimePassed() {
-        for (Sprite s : allSprites) {
-            s.timePassed();
+        for (int i = 0; i < allSprites.size(); i++) {
+            LinkedList<Sprite> clone = allSprites;
+            clone.get(i).timePassed();
+            if (clone.size() > allSprites.size()) {
+                i--;
+            }
+            allSprites = clone;
         }
+//        for (Sprite s : allSprites) {
+//            s.timePassed();
+//        }
     }
 
     /**

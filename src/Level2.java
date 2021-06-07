@@ -5,11 +5,12 @@
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 /**
- * Level 1.
+ * Level 2.
  */
-public class Level1 implements LevelInformation {
+public class Level2 implements LevelInformation {
 
 
     /**
@@ -18,7 +19,7 @@ public class Level1 implements LevelInformation {
      */
     @Override
     public int numberOfBalls() {
-        return 1;
+        return 10;
     }
 
     /**
@@ -29,7 +30,7 @@ public class Level1 implements LevelInformation {
     public List<Velocity> initialBallVelocities() {
         List<Velocity> velocity = new LinkedList<Velocity>();
         for (int i  = 0; i < numberOfBalls(); i++) {
-            velocity.add(new Velocity(0, -1));
+            velocity.add(new Velocity(0, -5));
         }
         return velocity;
     }
@@ -40,7 +41,7 @@ public class Level1 implements LevelInformation {
      */
     @Override
     public int paddleSpeed() {
-        return 5;
+        return 2;
     }
 
     /**
@@ -49,7 +50,7 @@ public class Level1 implements LevelInformation {
      */
     @Override
     public int paddleWidth() {
-        return 50;
+        return 500;
     }
 
     /**
@@ -58,7 +59,7 @@ public class Level1 implements LevelInformation {
      */
     @Override
     public String levelName() {
-        return "Direct Hit";
+        return "Wide Easy";
     }
 
     /**
@@ -77,9 +78,16 @@ public class Level1 implements LevelInformation {
     @Override
     public List<Block> blocks() {
         List<Block> blocks = new LinkedList<Block>();
-        Color color = Color.black;
-        Block block = new Block(new Rectangle(new Point(375, 100), 50, 20), color);
-        blocks.add(block);
+
+        for (int i = 0; i < numberOfBlocksToRemove(); i++) {
+            Random rand = new Random();
+            float r = rand.nextFloat();
+            float g = rand.nextFloat();
+            float b = rand.nextFloat();
+            Color randomColor = new Color(r, g, b);
+            Block block = new Block(new Rectangle(new Point(20 + i * 70, 100), 70, 20), randomColor);
+            blocks.add(block);
+        }
         return blocks;
     }
 
@@ -89,6 +97,6 @@ public class Level1 implements LevelInformation {
      */
     @Override
     public int numberOfBlocksToRemove() {
-        return 1;
+        return 8;
     }
 }

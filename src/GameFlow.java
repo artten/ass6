@@ -20,13 +20,12 @@ public class GameFlow {
 
     public void runLevels(List<LevelInformation> levels) {
         int i = 0;
+        Counter counter = new Counter();
         for (LevelInformation levelInfo : levels) {
-            System.out.println("herte");
             i++;
-            Counter counter = new Counter();
             GameLevel level = new GameLevel(levelInfo, gui, this.ar, counter, i);
             level.initialize();
-            while (level.getNumBalls() != 0) {
+            while (level.getNumBalls() != 0 && level.getNumBlocks() != 0) {
                 level.run();
             }
 
