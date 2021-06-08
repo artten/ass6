@@ -29,8 +29,11 @@ public class Level2 implements LevelInformation {
     @Override
     public List<Velocity> initialBallVelocities() {
         List<Velocity> velocity = new LinkedList<Velocity>();
-        for (int i  = 0; i < numberOfBalls(); i++) {
-            velocity.add(new Velocity(0, -5));
+        for (int i  = 0; i < 5; i++) {
+            velocity.add(new Velocity(-i % 5, -5 + i % 5));
+        }
+        for (int i  = 5; i < numberOfBalls(); i++) {
+            velocity.add(new Velocity(i % 5, -5 + i % 5));
         }
         return velocity;
     }
@@ -68,7 +71,7 @@ public class Level2 implements LevelInformation {
      */
     @Override
     public Sprite getBackground() {
-        return new Sun();
+        return new Flower();
     }
 
     /**
@@ -85,7 +88,7 @@ public class Level2 implements LevelInformation {
             float g = rand.nextFloat();
             float b = rand.nextFloat();
             Color randomColor = new Color(r, g, b);
-            Block block = new Block(new Rectangle(new Point(20 + i * 70, 100), 70, 20), randomColor);
+            Block block = new Block(new Rectangle(new Point(20 + i * 40, 100), 40, 20), randomColor);
             blocks.add(block);
         }
         return blocks;
@@ -97,6 +100,6 @@ public class Level2 implements LevelInformation {
      */
     @Override
     public int numberOfBlocksToRemove() {
-        return 8;
+        return 19;
     }
 }

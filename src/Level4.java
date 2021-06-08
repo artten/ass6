@@ -5,11 +5,12 @@
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 /**
- * Level 1.
+ * Level 4.
  */
-public class Level1 implements LevelInformation {
+public class Level4 implements LevelInformation {
 
 
     /**
@@ -18,7 +19,7 @@ public class Level1 implements LevelInformation {
      */
     @Override
     public int numberOfBalls() {
-        return 1;
+        return 3;
     }
 
     /**
@@ -29,7 +30,7 @@ public class Level1 implements LevelInformation {
     public List<Velocity> initialBallVelocities() {
         List<Velocity> velocity = new LinkedList<Velocity>();
         for (int i  = 0; i < numberOfBalls(); i++) {
-            velocity.add(new Velocity(0, -2));
+            velocity.add(new Velocity(i - 2, -5));
         }
         return velocity;
     }
@@ -49,7 +50,7 @@ public class Level1 implements LevelInformation {
      */
     @Override
     public int paddleWidth() {
-        return 50;
+        return 75;
     }
 
     /**
@@ -58,7 +59,7 @@ public class Level1 implements LevelInformation {
      */
     @Override
     public String levelName() {
-        return "Direct Hit";
+        return "FinalFour";
     }
 
     /**
@@ -67,7 +68,7 @@ public class Level1 implements LevelInformation {
      */
     @Override
     public Sprite getBackground() {
-        return new Sun();
+        return new RandomCircle();
     }
 
     /**
@@ -76,10 +77,24 @@ public class Level1 implements LevelInformation {
      */
     @Override
     public List<Block> blocks() {
+        int width = 40;
+        int height = 20;
+        int shift = 60;
         List<Block> blocks = new LinkedList<Block>();
-        Color color = Color.black;
-        Block block = new Block(new Rectangle(new Point(375, 100), 50, 20), color);
-        blocks.add(block);
+        Block block;
+        for (int i = 0; i < 4; i++) {
+            Random rand = new Random();
+            int numOfBlocks = 19;
+            float r = rand.nextFloat();
+            float g = rand.nextFloat();
+            float b = rand.nextFloat();
+            Color randomColor = new Color(r, g, b);
+            for (int j = 0; j < numOfBlocks; j++) {
+                block = new Block(new Rectangle(new Point(800 - (shift + j * width),
+                        shift + (height * (i + 1)) + height * 5), width, height), randomColor);
+                blocks.add(block);
+            }
+        }
         return blocks;
     }
 
@@ -89,6 +104,6 @@ public class Level1 implements LevelInformation {
      */
     @Override
     public int numberOfBlocksToRemove() {
-        return 1;
+        return 76;
     }
 }
