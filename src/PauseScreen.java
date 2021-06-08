@@ -17,9 +17,9 @@ public class PauseScreen implements Animation {
     }
     public void doOneFrame(DrawSurface d) {
         d.drawText(10, d.getHeight() / 2, "paused -- press space to continue", 32);
-        if (this.keyboard.isPressed(KeyboardSensor.SPACE_KEY)) {
-            this.stop = true;
-        }
+        //if (this.keyboard.isPressed(KeyboardSensor.SPACE_KEY)) {
+        //    this.stop = true;
+       // }
 
     }
     public boolean shouldStop() { return this.stop; }

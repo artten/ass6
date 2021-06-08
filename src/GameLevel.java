@@ -66,15 +66,14 @@ public class GameLevel implements Animation{
     /**
      *
      */
-    public GameLevel(LevelInformation levelInformation, GUI gui, AnimationRunner animationRunner,
+    public GameLevel(LevelInformation levelInformation, KeyboardSensor key, AnimationRunner animationRunner,
                      Counter counter, int level) {
         this.level = level;
         this.counter = counter;
         this.levelInformation = levelInformation;
         sprites = new SpriteCollection();
         environment = new GameEnvironment();
-        this.gui = gui;
-        this.keyboard = gui.getKeyboardSensor();
+        this.keyboard = key;
         this.runner = animationRunner;
     }
 
@@ -192,14 +191,28 @@ public class GameLevel implements Animation{
         this.sprites.drawAllOn(d);
         this.sprites.notifyAllTimePassed();
         if (this.keyboard.isPressed("p")) {
-            this.runner.run(new PauseScreen(this.keyboard));
+            //this.runner.run(new PauseScreen(this.keyboard));
+            KeyPressStoppableAnimation keyPressStoppableAnimation = new KeyPressStoppableAnimation(this.keyboard,
+                    KeyboardSensor.SPACE_KEY, new PauseScreen(this.keyboard));
+            this.runner.run(keyPressStoppableAnimation);
         }
         if (blockRemover.remainedBlocks() == 0) {
             scoreTrackingListener.addScore(100);
             this.running = false;
+            int score = counter.getValue();
+            YouWinAnimation youWinAnimation = new YouWinAnimation();
+            youWinAnimation.setScore(score);
+            KeyPressStoppableAnimation keyPressStoppableAnimation = new KeyPressStoppableAnimation(this.keyboard,
+                    KeyboardSensor.SPACE_KEY, youWinAnimation);
+            this.runner.run(keyPressStoppableAnimation);
         }
         if (ballRemover.remainedBalls() == 0) {
-            this.running = false;
+            int score = counter.getValue();
+            YouLooseAnimation youLooseAnimation = new YouLooseAnimation();
+            youLooseAnimation.setScore(score);
+            KeyPressStoppableAnimation keyPressStoppableAnimation = new KeyPressStoppableAnimation(this.keyboard,
+                    KeyboardSensor.SPACE_KEY, youLooseAnimation);
+            this.runner.run(keyPressStoppableAnimation);
         }
     }
 

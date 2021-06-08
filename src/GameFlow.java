@@ -2,6 +2,7 @@
  * @author 319339198
  */
 
+import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
 import biuoop.GUI;
 import java.util.List;
@@ -23,7 +24,7 @@ public class GameFlow {
         Counter counter = new Counter();
         for (LevelInformation levelInfo : levels) {
             i++;
-            GameLevel level = new GameLevel(levelInfo, gui, this.ar, counter, i);
+            GameLevel level = new GameLevel(levelInfo, gui.getKeyboardSensor(), this.ar, counter, i);
             level.initialize();
             while (level.getNumBalls() != 0 && level.getNumBlocks() != 0) {
                 level.run();
@@ -33,6 +34,11 @@ public class GameFlow {
                 break;
             }
 
+        }
+        while (true) {
+            if (gui.getKeyboardSensor().isPressed(KeyboardSensor.SPACE_KEY)) {
+                gui.close();
+            }
         }
     }
 }
