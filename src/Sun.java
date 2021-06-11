@@ -2,15 +2,19 @@
  * @author 319339198
  */
 import biuoop.DrawSurface;
-
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * collidable.
  */
 public class Sun implements  Sprite {
-    int sunRadius = 50;
-    int addSub = 1;
+    private int sunRadius = 50;
+    private int addSub = 1;
+
+    /**
+     * what to draw.
+     * @param d - surface
+     */
     @Override
     public void drawOn(DrawSurface d) {
         d.setColor(Color.yellow);
@@ -19,6 +23,9 @@ public class Sun implements  Sprite {
         d.fillCircle(d.getWidth() - 20, 40, sunRadius);
     }
 
+    /**
+     * what to do each time passed.
+     */
     @Override
     public void timePassed() {
         if (sunRadius > 50 && sunRadius < 150) {
@@ -35,6 +42,10 @@ public class Sun implements  Sprite {
         }
     }
 
+    /**
+     * add to the game component.
+     * @param game - the game
+     */
     public void addToGame(GameLevel game) {
         game.addSprite(this);
     }

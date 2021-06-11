@@ -15,12 +15,22 @@ public class KeyPressStoppableAnimation implements Animation {
     private boolean shouldStop = false;
     private boolean isPressed = true;
 
+    /**
+     * Constructor.
+     * @param sensor - keyboard sensor
+     * @param key - key
+     * @param animation - where to run
+     */
     public KeyPressStoppableAnimation(KeyboardSensor sensor, String key, Animation animation) {
         this.key = key;
         this.sensor = sensor;
         this.animation = animation;
     }
 
+    /**
+     * what to do each frame.
+     * @param d - surface
+     */
     @Override
     public void doOneFrame(DrawSurface d) {
         animation.doOneFrame(d);
@@ -30,6 +40,10 @@ public class KeyPressStoppableAnimation implements Animation {
         }
     }
 
+    /**
+     * when it should stop.
+     * @return true if should stop
+     */
     @Override
     public boolean shouldStop() {
         return shouldStop;

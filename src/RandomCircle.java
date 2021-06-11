@@ -3,9 +3,7 @@
  */
 import biuoop.DrawSurface;
 
-import java.awt.*;
-import java.sql.Array;
-import java.util.Arrays;
+import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -19,6 +17,11 @@ public class RandomCircle implements Sprite {
     private int framesPassed = 0;
     private List<Color> colors = new LinkedList<Color>();
     private List<Point> circles = new LinkedList<Point>();
+
+    /**
+     * what to draw.
+     * @param d - surface
+     */
     @Override
     public void drawOn(DrawSurface d) {
         if (framesPassed % 15 == 0) {
@@ -33,7 +36,7 @@ public class RandomCircle implements Sprite {
             int y = (int) (Math.random() * (780 - 20)) + 20;
             circles.add(new Point(x, y));
             circles.add(new Point(0, 0));
-            framesPassed ++;
+            framesPassed++;
         }
         for (int i = 0; i < colors.size(); i++) {
             if (circles.get(i * 2 + 1).getX() > 150) {
@@ -41,24 +44,31 @@ public class RandomCircle implements Sprite {
                 circles.remove(i * 2 + 1);
                 colors.remove(i);
                 i--;
-            }
-            else {
+            } else {
                 d.setColor(colors.get(i));
-                d.fillCircle( (int) circles.get(i * 2).getX(), (int) circles.get(i * 2).getY(), (int) circles.get(i * 2 + 1).getX());
+                d.fillCircle((int) circles.get(i * 2).getX(), (int) circles.get(i * 2).getY(),
+                        (int) circles.get(i * 2 + 1).getX());
                 circles.add(i * 2 + 2, new Point(circles.get(i * 2 + 1).getX() + 1, 0));
                 circles.remove(i * 2 + 1);
             }
         }
-        framesPassed ++;
+        framesPassed++;
         if (framesPassed == 60) {
             framesPassed = 0;
         }
     }
 
+    /**
+     * what to do each time passed.
+     */
     @Override
     public void timePassed() {
     }
 
+    /**
+     * add to the game component.
+     * @param game - the game
+     */
     public void addToGame(GameLevel game) {
         game.addSprite(this);
     }

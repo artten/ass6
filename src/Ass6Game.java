@@ -12,6 +12,10 @@ public class Ass6Game {
     static final int HEIGHT = 600;
 
 
+    /**
+     * main.
+     * @param args - levels
+     */
     public static void main(String[] args) {
         GUI gui = new GUI("Really Cool Game", WIDTH, HEIGHT);
         AnimationRunner runner = new AnimationRunner(gui, 60);

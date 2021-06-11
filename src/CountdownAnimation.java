@@ -4,8 +4,6 @@
 
 import biuoop.DrawSurface;
 import biuoop.GUI;
-import biuoop.KeyboardSensor;
-import biuoop.Sleeper;
 
 /**
  * the  count down Animation.

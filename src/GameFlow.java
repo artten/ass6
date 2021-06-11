@@ -2,7 +2,6 @@
  * @author 319339198
  */
 
-import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
 import biuoop.GUI;
 import java.util.List;
@@ -14,11 +13,20 @@ public class GameFlow {
     private AnimationRunner ar;
     private  GUI gui;
 
+    /**
+     * Constructor.
+     * @param ar - animation runner
+     * @param gui - the gui to run on
+     */
     public GameFlow(AnimationRunner ar, GUI gui) {
         this.ar = ar;
         this.gui = gui;
     }
 
+    /**
+     * runs all the levels.
+     * @param levels - levels to run
+     */
     public void runLevels(List<LevelInformation> levels) {
         int i = 0;
         Counter counter = new Counter();
@@ -34,7 +42,8 @@ public class GameFlow {
                 int score = counter.getValue();
                 YouLooseAnimation youLooseAnimation = new YouLooseAnimation();
                 youLooseAnimation.setScore(score);
-                KeyPressStoppableAnimation keyPressStoppableAnimation = new KeyPressStoppableAnimation(gui.getKeyboardSensor(),
+                KeyPressStoppableAnimation keyPressStoppableAnimation = new KeyPressStoppableAnimation(
+                        gui.getKeyboardSensor(),
                         KeyboardSensor.SPACE_KEY, youLooseAnimation);
                 this.ar.run(keyPressStoppableAnimation);
                 gui.close();

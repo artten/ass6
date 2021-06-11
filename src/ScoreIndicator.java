@@ -4,7 +4,7 @@
 
 import biuoop.DrawSurface;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * display score.

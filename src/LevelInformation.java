@@ -56,7 +56,7 @@ public interface LevelInformation {
     // before the level is considered to be "cleared".
     // This number should be <= blocks.size();
     /**
-     * num of block
+     * num of block.
      * @return - num of bloks
      */
     int numberOfBlocksToRemove();

@@ -2,7 +2,7 @@
  * @author 319339198
  */
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -23,7 +23,7 @@ public class Level3 implements LevelInformation {
     }
 
     /**
-     * add velocities
+     * add velocities.
      * @return list of velocities
      */
     @Override

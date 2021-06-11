@@ -19,17 +19,17 @@ public class AnimationRunner {
      * @param gui - the gui to display on
      * @param framesPerSecond -  frame per seconds
      */
-    public AnimationRunner(GUI gui, int framesPerSecond){
+    public AnimationRunner(GUI gui, int framesPerSecond) {
         this.gui = gui;
         this.framesPerSecond = framesPerSecond;
     }
 
     /**
      * set frame per seconds.
-     * @param framesPerSecond - frames per second
+     * @param framesPer - frames per second
      */
-    public void setFramesPerSecond(int framesPerSecond) {
-        this.framesPerSecond = framesPerSecond;
+    public void setFramesPerSecond(int framesPer) {
+        this.framesPerSecond = framesPer;
     }
 
     /**

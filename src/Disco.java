@@ -3,13 +3,11 @@
  */
 import biuoop.DrawSurface;
 
-import java.awt.*;
-import java.sql.Array;
-import java.util.Arrays;
+import java.awt.Color;
 import java.util.Random;
 
 /**
- * collidable.
+ * Disco.
  */
 public class Disco implements Sprite {
     private int sunRadius = 50;
@@ -17,6 +15,12 @@ public class Disco implements Sprite {
     private int framesPassed = 0;
     private Color[] colors = new Color[64];
     @Override
+
+
+    /**
+     * what to draw.
+     * @param d - surface
+     */
     public void drawOn(DrawSurface d) {
         if (framesPassed == 0) {
             for (int i = 0; i < 8; i++) {
@@ -34,29 +38,35 @@ public class Disco implements Sprite {
                     d.drawRectangle(j * 100, 75 * i, 100, 75);
                 }
             }
-            framesPassed ++;
-        }
-        else {
+            framesPassed++;
+        } else {
             for (int i = 0; i < 8; i++) {
                 int numOfBlocks = 8;
                 for (int j = 0; j < numOfBlocks; j++) {
-                    d.setColor( colors[i * 8 + j]);
+                    d.setColor(colors[i * 8 + j]);
                     d.fillRectangle(j * 100, 75 * i, 100, 75);
                     d.setColor(Color.BLACK);
                     d.drawRectangle(j * 100, 75 * i, 100, 75);
                 }
             }
-            framesPassed ++;
+            framesPassed++;
             if (framesPassed == 60) {
                 framesPassed = 0;
             }
         }
     }
 
+    /**
+     * what to do each time.
+     */
     @Override
     public void timePassed() {
     }
 
+    /**
+     * add to the game.
+     * @param game - the game
+     */
     public void addToGame(GameLevel game) {
         game.addSprite(this);
     }

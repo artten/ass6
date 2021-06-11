@@ -3,20 +3,21 @@
  */
 import biuoop.DrawSurface;
 
-import java.awt.*;
-import java.sql.Array;
-import java.util.Arrays;
+import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 /**
- * collidable.
+ * Flower.
  */
 public class Flower implements Sprite {
     private static List<Color> colors = new LinkedList<Color>();
-    int framePassed = 0;
+    private int framePassed = 0;
 
+    /**
+     * constructor.
+     */
     public Flower() {
         for (int i = 0; i < 8; i++) {
             Random rand = new Random();
@@ -28,6 +29,11 @@ public class Flower implements Sprite {
         }
 
     }
+
+    /**
+     * what to draw.
+     * @param d - surface
+     */
     @Override
     public void drawOn(DrawSurface d) {
         if (framePassed == 90) {
@@ -37,7 +43,7 @@ public class Flower implements Sprite {
             colors.add(color);
         }
         int startX = d.getWidth() / 2;
-        int startY = d.getHeight()/ 2 - 70;
+        int startY = d.getHeight() / 2 - 70;
         int radius = 60;
         int radiusChange = 40;
         d.setColor(Color.green);
@@ -67,10 +73,17 @@ public class Flower implements Sprite {
         framePassed++;
     }
 
+    /**
+     * what to do each time.
+     */
     @Override
     public void timePassed() {
     }
 
+    /**
+     * add to the game.
+     * @param game - the game
+     */
     public void addToGame(GameLevel game) {
         game.addSprite(this);
     }

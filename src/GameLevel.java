@@ -5,15 +5,13 @@
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.KeyboardSensor;
-import biuoop.Sleeper;
-
-import java.awt.*;
+import java.awt.Color;
 import java.util.Random;
 
 /**
  * the Game.
  */
-public class GameLevel implements Animation{
+public class GameLevel implements Animation {
     private SpriteCollection sprites;
     private GameEnvironment environment;
     private KeyboardSensor keyboard;
@@ -64,7 +62,12 @@ public class GameLevel implements Animation{
     }
 
     /**
-     *
+     * Constructor.
+     * @param levelInformation - level info
+     * @param key - key
+     * @param animationRunner - where to run
+     * @param counter - score counter
+     * @param level - level number
      */
     public GameLevel(LevelInformation levelInformation, KeyboardSensor key, AnimationRunner animationRunner,
                      Counter counter, int level) {
@@ -145,13 +148,13 @@ public class GameLevel implements Animation{
     public void initialize() {
         sprites.addSprite(this.levelInformation.getBackground());
         Color color = Color.red;
-        int paddleStartX = WIDTH/2 -levelInformation.paddleWidth()/2;
-        Block paddleBlock = new Block(new Rectangle(new Point(paddleStartX, 560), levelInformation.paddleWidth(), 10), color);
+        int paddleStartX = WIDTH / 2 - levelInformation.paddleWidth() / 2;
+        Block paddleBlock = new Block(new Rectangle(new Point(paddleStartX, 560),
+                levelInformation.paddleWidth(), 10), color);
         Paddle paddle = new Paddle(this.keyboard, paddleBlock);
         paddle.addToGame(this);
-        Counter counter =  this.counter;
-        scoreTrackingListener = new ScoreTrackingListener(this, counter);
-        ScoreIndicator scoreIndicator = new ScoreIndicator(this, counter);
+        scoreTrackingListener = new ScoreTrackingListener(this, this.counter);
+        ScoreIndicator scoreIndicator = new ScoreIndicator(this, this.counter);
         scoreIndicator.addToGame();
         color = Color.blue;
         //initializeBlocks(6, 50, 20, 20);
@@ -176,8 +179,8 @@ public class GameLevel implements Animation{
         //this.runner = new AnimationRunner(gui, framesPerSecond);
         int numOfSeconds = 3;
         int countFrom = 3;
-        runner.setFramesPerSecond(numOfSeconds/countFrom);
-        this.runner.run(new CountdownAnimation(numOfSeconds,countFrom, sprites));
+        runner.setFramesPerSecond(numOfSeconds / countFrom);
+        this.runner.run(new CountdownAnimation(numOfSeconds, countFrom, sprites));
         runner.setFramesPerSecond(framesPerSecond);
         this.runner.run(this);
         //gui.close();
@@ -187,7 +190,7 @@ public class GameLevel implements Animation{
      * Draw one frame.
      * @param d - the surface
      */
-    public void doOneFrame(DrawSurface d){
+    public void doOneFrame(DrawSurface d) {
         this.sprites.drawAllOn(d);
         this.sprites.notifyAllTimePassed();
         if (this.keyboard.isPressed("p")) {
@@ -206,25 +209,41 @@ public class GameLevel implements Animation{
     }
 
     /**
-     * check if animation should stop
+     * check if animation should stop.
      * @return - if the game should stop
      */
-    public boolean shouldStop(){
+    public boolean shouldStop() {
         return !this.running;
     }
 
-    public int getNumBalls () {
+    /**
+     * get number of balls remaining.
+     * @return number of balls
+     */
+    public int getNumBalls() {
         return ballRemover.remainedBalls();
     }
 
+    /**
+     * get number of blocks remaining.
+     * @return number of blocks
+     */
     public int getNumBlocks() {
         return  blockRemover.remainedBlocks();
     }
 
+    /**
+     * get level name.
+     * @return string with the name
+     */
     public String getLevelName() {
         return levelInformation.levelName();
     }
 
+    /**
+     * get level number.
+     * @return return int with the level number
+     */
     public int getLevelNumber() {
         return this.level;
     }
