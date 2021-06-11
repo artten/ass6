@@ -18,16 +18,16 @@ public class Ass6Game {
         GameFlow gameFlow = new GameFlow(runner, gui);
         List<LevelInformation> levelInformations = new LinkedList<LevelInformation>();
         for (String string : args) {
-            if (string == "1") {
+            if (string.equals("1")) {
                 levelInformations.add(new Level1());
             }
-            if (string == "2") {
+            if (string.equals("2")) {
                 levelInformations.add(new Level2());
             }
-            if (string == "3") {
+            if (string.equals("3")) {
                 levelInformations.add(new Level3());
             }
-            if (string == "4") {
+            if (string.equals("4")) {
                 levelInformations.add(new Level4());
             }
         }

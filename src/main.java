@@ -20,7 +20,7 @@ public class main {
         List<LevelInformation> levelInformations = new LinkedList<LevelInformation>();
         levelInformations.add(new Level1());
         //levelInformations.add(new Level2());
-        //levelInformations.add(new Level3());
+        levelInformations.add(new Level3());
         //levelInformations.add(new Level4());
         gameFlow.runLevels(levelInformations);
     }

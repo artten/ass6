@@ -199,20 +199,9 @@ public class GameLevel implements Animation{
         if (blockRemover.remainedBlocks() == 0) {
             scoreTrackingListener.addScore(100);
             this.running = false;
-            int score = counter.getValue();
-            YouWinAnimation youWinAnimation = new YouWinAnimation();
-            youWinAnimation.setScore(score);
-            KeyPressStoppableAnimation keyPressStoppableAnimation = new KeyPressStoppableAnimation(this.keyboard,
-                    KeyboardSensor.SPACE_KEY, youWinAnimation);
-            this.runner.run(keyPressStoppableAnimation);
         }
         if (ballRemover.remainedBalls() == 0) {
-            int score = counter.getValue();
-            YouLooseAnimation youLooseAnimation = new YouLooseAnimation();
-            youLooseAnimation.setScore(score);
-            KeyPressStoppableAnimation keyPressStoppableAnimation = new KeyPressStoppableAnimation(this.keyboard,
-                    KeyboardSensor.SPACE_KEY, youLooseAnimation);
-            this.runner.run(keyPressStoppableAnimation);
+            this.running = false;
         }
     }
 

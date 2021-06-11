@@ -31,14 +31,21 @@ public class GameFlow {
             }
 
             if (level.getNumBlocks() != 0) {
-                break;
-            }
-
-        }
-        while (true) {
-            if (gui.getKeyboardSensor().isPressed(KeyboardSensor.SPACE_KEY)) {
+                int score = counter.getValue();
+                YouLooseAnimation youLooseAnimation = new YouLooseAnimation();
+                youLooseAnimation.setScore(score);
+                KeyPressStoppableAnimation keyPressStoppableAnimation = new KeyPressStoppableAnimation(gui.getKeyboardSensor(),
+                        KeyboardSensor.SPACE_KEY, youLooseAnimation);
+                this.ar.run(keyPressStoppableAnimation);
                 gui.close();
             }
         }
+        int score = counter.getValue();
+        YouWinAnimation youWinAnimation = new YouWinAnimation();
+        youWinAnimation.setScore(score);
+        KeyPressStoppableAnimation keyPressStoppableAnimation = new KeyPressStoppableAnimation(gui.getKeyboardSensor(),
+                KeyboardSensor.SPACE_KEY, youWinAnimation);
+        this.ar.run(keyPressStoppableAnimation);
+        gui.close();
     }
 }
